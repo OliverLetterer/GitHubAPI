@@ -7,6 +7,31 @@
 //
 
 #import "GHAppDelegate.h"
+#import "CTRESTfulCoreData.h"
+#import "GHBackgroundQueue.h"
+#import "GHDataStoreManager.h"
+#import "GHUser.h"
+
+__attribute__((constructor))
+void GHInitializeCTRESTfulCoreData(void)
+{
+    @autoreleasepool {
+        [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
+        
+        [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+            return [GHDataStoreManager sharedInstance].backgroundThreadContext;
+        }];
+        
+        [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+            return [GHDataStoreManager sharedInstance].mainThreadContext;
+        }];
+        
+        [CTObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        
+        [CTAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
+        [CTAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
+    }
+}
 
 @implementation GHAppDelegate
 
@@ -16,6 +41,15 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
+        [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
+            NSLog(@"%@", repositories);
+        }];
+        NSLog(@"%@", user.avatarURL.class);
+        NSLog(@"%@", user);
+    }];
+    
     return YES;
 }
 
