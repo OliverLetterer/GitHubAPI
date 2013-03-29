@@ -22,6 +22,19 @@
 
 @implementation GHBackgroundQueue
 
+#pragma mark - AFHTTPClient
+
+- (instancetype)initWithBaseURL:(NSURL *)url
+{
+    if (self = [super initWithBaseURL:url]) {
+        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        
+        [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+    }
+    return self;
+}
+
 #pragma mark - CTRESTfulCoreDataBackgroundQueue
 
 + (id<CTRESTfulCoreDataBackgroundQueue>)sharedQueue
@@ -34,14 +47,13 @@
 {
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:URL.absoluteString parameters:nil];
     
-    AFJSONRequestOperation *requestOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
+    AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completionHandler) {
-            completionHandler(JSON, nil);
+            completionHandler(responseObject, nil);
         }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completionHandler) {
-            completionHandler(JSON, error);
+            completionHandler(nil, error);
         }
     }];
     
@@ -59,11 +71,11 @@
     [request setHTTPBody:JSONData];
     [request setValue:[NSString stringWithFormat:@"%d", JSONData.length] forHTTPHeaderField:@"Content-Length"];
     
-    AFJSONRequestOperation *requestOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completionHandler) {
             completionHandler(nil);
         }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completionHandler) {
             completionHandler(error);
         }
@@ -86,7 +98,7 @@
 {
     JSONObject = JSONObject ?: @{};
     
-    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:URL.absoluteString parameters:nil];
+    NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:URL.absoluteString parameters:nil];
     
     NSError *error = nil;
     NSData *JSONData = [NSData data];
@@ -107,11 +119,11 @@
             setupHandler(request);
         }
         
-        AFJSONRequestOperation *requestOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (completionHandler) {
-                completionHandler(JSON, nil);
+                completionHandler(responseObject, nil);
             }
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (completionHandler) {
                 completionHandler(nil, error);
             }
@@ -139,13 +151,13 @@
     } else {
         [request setHTTPBody:JSONData];
         
-        AFJSONRequestOperation *requestOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (completionHandler) {
-                completionHandler(JSON, nil);
+                completionHandler(responseObject, nil);
             }
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (completionHandler) {
-                completionHandler(JSON, error);
+                completionHandler(nil, error);
             }
         }];
         

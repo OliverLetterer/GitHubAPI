@@ -7,7 +7,7 @@
 //
 
 
-@class GHUser;
+@class GHUser, GHIssue;
 
 
 
@@ -28,5 +28,15 @@
 @property (nonatomic, strong) NSURL *homepage;
 
 @property (nonatomic, strong) GHUser *owner;
+
+@end
+
+
+
+@interface GHRepository (CoreDataGeneratedAccessors)
+
+- (void)issuesWithCompletionHandler:(void(^)(NSArray *issues, NSError *error))completionHandler;
+- (void)addIssuesObject:(GHIssue *)issue withCompletionHandler:(void(^)(GHIssue *issue, NSError *error))completionHandler;
+- (void)deleteIssuesObject:(GHIssue *)issue withCompletionHandler:(void(^)(GHIssue *issue, NSError *error))completionHandler;
 
 @end

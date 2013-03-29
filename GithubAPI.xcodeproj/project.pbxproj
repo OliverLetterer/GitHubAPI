@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7680C8B1705903F00D703E4 /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = A7680C8A1705903F00D703E4 /* GHIssue.m */; };
 		A7C2AC1916E7CC2400632C53 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C2AC1816E7CC2400632C53 /* UIKit.framework */; };
 		A7C2AC1B16E7CC2400632C53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C2AC1A16E7CC2400632C53 /* Foundation.framework */; };
 		A7C2AC1D16E7CC2400632C53 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C2AC1C16E7CC2400632C53 /* CoreGraphics.framework */; };
@@ -83,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A7680C891705903F00D703E4 /* GHIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
+		A7680C8A1705903F00D703E4 /* GHIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssue.m; sourceTree = "<group>"; };
 		A7C2AC1516E7CC2400632C53 /* GithubAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2AC1816E7CC2400632C53 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A7C2AC1A16E7CC2400632C53 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7680C881705902E00D703E4 /* GHIssue */ = {
+			isa = PBXGroup;
+			children = (
+				A7680C891705903F00D703E4 /* GHIssue.h */,
+				A7680C8A1705903F00D703E4 /* GHIssue.m */,
+			);
+			name = GHIssue;
+			sourceTree = "<group>";
+		};
 		A7C2AC0C16E7CC2400632C53 = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +300,7 @@
 		A7C2AC9016E7CEEE00632C53 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A7680C881705902E00D703E4 /* GHIssue */,
 				A7C2ACB816E7E44400632C53 /* GHRepository */,
 				A7C2ACAC16E7D86C00632C53 /* GHUser */,
 				A7C2AC9D16E7D1DD00632C53 /* GHBackgroundQueue */,
@@ -449,6 +462,7 @@
 				A7C2ACA016E7D1EE00632C53 /* GHBackgroundQueue.m in Sources */,
 				A7C2ACB216E7D8B500632C53 /* GHUser.m in Sources */,
 				A7C2ACBB16E7E58C00632C53 /* GHRepository.m in Sources */,
+				A7680C8B1705903F00D703E4 /* GHIssue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

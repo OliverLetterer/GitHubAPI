@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="GHIssue" representedClassName="GHIssue" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="closedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="comments" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="assignee" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="issues" inverseEntity="GHUser" syncable="YES"/>
+        <relationship name="repository" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GHRepository" inverseName="issues" inverseEntity="GHRepository" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="issues" inverseEntity="GHUser" syncable="YES"/>
+    </entity>
     <entity name="GHRepository" representedClassName="GHRepository" syncable="YES">
         <attribute name="cloneURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="fork" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -14,6 +28,7 @@
         <attribute name="remoteDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sshURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="svnURL" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="repository" inverseEntity="GHIssue" syncable="YES"/>
         <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="repositories" inverseEntity="GHUser" syncable="YES"/>
     </entity>
     <entity name="GHUser" representedClassName="GHUser" syncable="YES">
@@ -26,10 +41,12 @@
         <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="assignee" inverseEntity="GHIssue" syncable="YES"/>
         <relationship name="repositories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHRepository" inverseName="owner" inverseEntity="GHRepository" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GHRepository" positionX="160" positionY="192" width="128" height="255"/>
-        <element name="GHUser" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="GHRepository" positionX="160" positionY="192" width="128" height="270"/>
+        <element name="GHUser" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="GHIssue" positionX="160" positionY="192" width="128" height="225"/>
     </elements>
 </model>

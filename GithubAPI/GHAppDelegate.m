@@ -11,6 +11,8 @@
 #import "GHBackgroundQueue.h"
 #import "GHDataStoreManager.h"
 #import "GHUser.h"
+#import "GHRepository.h"
+#import "GHIssue.h"
 
 __attribute__((constructor))
 void GHInitializeCTRESTfulCoreData(void)
@@ -44,10 +46,15 @@ void GHInitializeCTRESTfulCoreData(void)
     
     [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
         [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
-            NSLog(@"%@", repositories);
+            repositories = [repositories sortedArrayUsingComparator:^NSComparisonResult(GHRepository *repository1, GHRepository *repository2) {
+                return [repository1.name compare:repository2.name];
+            }];
+            
+            GHRepository *repository = repositories[2];
+            [repository issuesWithCompletionHandler:^(NSArray *issues, NSError *error) {
+                NSLog(@"%@", [issues valueForKeyPath:@"title"]);
+            }];
         }];
-        NSLog(@"%@", user.avatarURL.class);
-        NSLog(@"%@", user);
     }];
     
     return YES;
@@ -61,7 +68,7 @@ void GHInitializeCTRESTfulCoreData(void)
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
