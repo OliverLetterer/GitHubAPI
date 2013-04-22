@@ -25,7 +25,7 @@
         <attribute name="mirrorURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="private" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="remoteDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="repositoryDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sshURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="svnURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="repository" inverseEntity="GHIssue" syncable="YES"/>
@@ -45,8 +45,8 @@
         <relationship name="repositories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHRepository" inverseName="owner" inverseEntity="GHRepository" syncable="YES"/>
     </entity>
     <elements>
+        <element name="GHIssue" positionX="160" positionY="192" width="128" height="225"/>
         <element name="GHRepository" positionX="160" positionY="192" width="128" height="270"/>
         <element name="GHUser" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="GHIssue" positionX="160" positionY="192" width="128" height="225"/>
     </elements>
 </model>

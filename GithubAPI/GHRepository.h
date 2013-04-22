@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSNumber *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *fullName;
-@property (nonatomic, strong) NSString *remoteDescription;
+@property (nonatomic, strong) NSString *repositoryDescription;
 @property (nonatomic, strong) NSNumber *private;
 @property (nonatomic, strong) NSNumber *fork;
 @property (nonatomic, strong) NSURL *htmlURL;

@@ -15,7 +15,7 @@
 @dynamic identifier;
 @dynamic name;
 @dynamic fullName;
-@dynamic remoteDescription;
+@dynamic repositoryDescription;
 @dynamic private;
 @dynamic fork;
 @dynamic htmlURL;
@@ -29,7 +29,7 @@
 
 + (void)initialize
 {
-    [self registerAttributeName:@"remoteDescription" forJSONObjectKeyPath:@"description"];
+    [self registerAttributeName:@"repositoryDescription" forJSONObjectKeyPath:@"description"];
 }
 
 @end
