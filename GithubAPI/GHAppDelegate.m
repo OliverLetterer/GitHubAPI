@@ -46,6 +46,10 @@ void GHInitializeCTRESTfulCoreData(void)
     
     [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
         [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
+            
+            for (GHRepository *repository in repositories) {
+                repository.owner == user;
+            }
             repositories = [repositories sortedArrayUsingComparator:^NSComparisonResult(GHRepository *repository1, GHRepository *repository2) {
                 return [repository1.name compare:repository2.name];
             }];
