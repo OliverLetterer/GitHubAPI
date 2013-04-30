@@ -7,6 +7,7 @@
 //
 
 #import "GHBackgroundQueue.h"
+#import "GHDataStoreManager.h"
 
 
 
@@ -29,6 +30,26 @@
 #pragma mark - Singleton implementation
 
 @implementation GHBackgroundQueue (Singleton)
+
++ (void)initialize
+{
+    if (self != [GHBackgroundQueue class]) {
+        return;
+    }
+    
+    [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
+    }];
+    
+    [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].mainThreadManagedObjectContext;
+    }];
+    
+    [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
+}
 
 + (GHBackgroundQueue *)sharedInstance 
 {

@@ -23,34 +23,7 @@
 
 @implementation GHDataStoreManager
 
-+ (void)initialize
-{
-    if (self != [GHDataStoreManager class]) {
-        return;
-    }
-    
-    [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
-    
-    [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
-        return [GHDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
-    }];
-    
-    [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
-        return [GHDataStoreManager sharedInstance].mainThreadManagedObjectContext;
-    }];
-    
-    [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    
-    [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
-    [SLAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
-}
-
 #pragma mark - SLCoreDataStack
-
-- (NSString *)humanReadableInterfaceName
-{
-    return NSLocalizedString(@"Database", @"");
-}
 
 - (NSString *)managedObjectModelName
 {

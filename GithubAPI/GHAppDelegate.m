@@ -11,6 +11,7 @@
 #import "GHRepository.h"
 #import "GHIssue.h"
 #import "GHDataStoreManager.h"
+#import "GHBackgroundQueue.h"
 
 @implementation GHAppDelegate
 
@@ -21,7 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    [GHDataStoreManager sharedInstance];
+    [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
     
     [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
         [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
