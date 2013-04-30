@@ -29,7 +29,6 @@
     [self registerCRUDBaseURL:[NSURL URLWithString:@"/users/:login/repos"] forRelationship:@"repositories"];
 }
 
-
 + (void)userWithName:(NSString *)name completionHandler:(void(^)(GHUser *user, NSError *error))completionHandler
 {
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"/users/%@", name]];

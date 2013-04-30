@@ -24,6 +24,19 @@
     
     [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
     
+    [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
+    }];
+    
+    [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].mainThreadManagedObjectContext;
+    }];
+    
+    [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
+    
     [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
         [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
             

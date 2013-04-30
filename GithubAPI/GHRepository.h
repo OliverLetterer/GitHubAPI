@@ -37,6 +37,6 @@
 
 - (void)issuesWithCompletionHandler:(void(^)(NSArray *issues, NSError *error))completionHandler;
 - (void)addIssuesObject:(GHIssue *)issue withCompletionHandler:(void(^)(GHIssue *issue, NSError *error))completionHandler;
-- (void)deleteIssuesObject:(GHIssue *)issue withCompletionHandler:(void(^)(GHIssue *issue, NSError *error))completionHandler;
+- (void)deleteIssuesObject:(GHIssue *)issue withCompletionHandler:(void(^)(NSError *error))completionHandler;
 
 @end
