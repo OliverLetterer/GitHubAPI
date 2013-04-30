@@ -7,6 +7,9 @@
 //
 
 #import "GHDataStoreManager.h"
+#import "SLRESTfulCoreData.h"
+#import "GHBackgroundQueue.h"
+#import "GHDataStoreManager.h"
 
 
 
@@ -20,15 +23,29 @@
 
 @implementation GHDataStoreManager
 
-#pragma mark - CTDataStoreManager
-
-- (NSManagedObjectContext *)newManagedObjectContextWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType automaticallyMergesChangesWithOtherContexts:(BOOL)automaticallyMergesChangesWithOtherContexts
++ (void)initialize
 {
-    NSManagedObjectContext *context = [super newManagedObjectContextWithConcurrencyType:concurrencyType automaticallyMergesChangesWithOtherContexts:automaticallyMergesChangesWithOtherContexts];
-    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+    if (self != [GHDataStoreManager class]) {
+        return;
+    }
     
-    return context;
+    [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
+    
+    [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].backgroundThreadManagedObjectContext;
+    }];
+    
+    [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
+        return [GHDataStoreManager sharedInstance].mainThreadManagedObjectContext;
+    }];
+    
+    [SLObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
+    [SLAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
 }
+
+#pragma mark - SLCoreDataStack
 
 - (NSString *)humanReadableInterfaceName
 {

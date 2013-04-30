@@ -1,9 +1,0 @@
-[submodule "Submodules/AFNetworking"]
-	path = Submodules/AFNetworking
-	url = git://github.com/AFNetworking/AFNetworking.git
-[submodule "Submodules/CTRESTfulCoreData"]
-	path = Submodules/CTRESTfulCoreData
-	url = git@github.com:ebf/CTRESTfulCoreData.git
-[submodule "Submodules/CTDataStoreManager"]
-	path = Submodules/CTDataStoreManager
-	url = git@github.com:ebf/CTDataStoreManager.git

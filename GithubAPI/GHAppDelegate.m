@@ -7,33 +7,10 @@
 //
 
 #import "GHAppDelegate.h"
-#import "CTRESTfulCoreData.h"
-#import "GHBackgroundQueue.h"
-#import "GHDataStoreManager.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHIssue.h"
-
-__attribute__((constructor))
-void GHInitializeCTRESTfulCoreData(void)
-{
-    @autoreleasepool {
-        [NSManagedObject setDefaultBackgroundQueue:[GHBackgroundQueue sharedInstance]];
-        
-        [NSManagedObject registerDefaultBackgroundThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
-            return [GHDataStoreManager sharedInstance].backgroundThreadContext;
-        }];
-        
-        [NSManagedObject registerDefaultMainThreadManagedObjectContextWithAction:^NSManagedObjectContext *{
-            return [GHDataStoreManager sharedInstance].mainThreadContext;
-        }];
-        
-        [CTObjectConverter setDefaultDateTimeFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-        
-        [CTAttributeMapping registerDefaultObjcNamingConvention:@"identifier" forJSONNamingConvention:@"id"];
-        [CTAttributeMapping registerDefaultObjcNamingConvention:@"URL" forJSONNamingConvention:@"url"];
-    }
-}
+#import "GHDataStoreManager.h"
 
 @implementation GHAppDelegate
 
@@ -44,11 +21,13 @@ void GHInitializeCTRESTfulCoreData(void)
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [GHDataStoreManager sharedInstance];
+    
     [GHUser userWithName:@"OliverLetterer" completionHandler:^(GHUser *user, NSError *error) {
         [user repositoriesWithCompletionHandler:^(NSArray *repositories, NSError *error) {
             
             for (GHRepository *repository in repositories) {
-                repository.owner == user;
+                NSLog(@"%d", repository.owner == user);
             }
             repositories = [repositories sortedArrayUsingComparator:^NSComparisonResult(GHRepository *repository1, GHRepository *repository2) {
                 return [repository1.name compare:repository2.name];

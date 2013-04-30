@@ -6,7 +6,8 @@
 //  Copyright 2013 Sparrow-Labs. All rights reserved.
 //
 
-#import "CTRESTfulCoreData.h"
+#import "AFRESTfulCoreDataBackgroundQueue.h"
+#import "SLRESTfulCoreData.h"
 #import "AFNetworking.h"
 
 
@@ -14,7 +15,7 @@
 /**
  @abstract  <#abstract comment#>
  */
-@interface GHBackgroundQueue : AFHTTPClient <CTRESTfulCoreDataBackgroundQueue>
+@interface GHBackgroundQueue : AFRESTfulCoreDataBackgroundQueue
 
 @end
 

@@ -6,13 +6,13 @@
 //  Copyright 2013 Sparrow-Labs. All rights reserved.
 //
 
-#import "CTDataStoreManager.h"
+#import "SLCoreDataStack.h"
 
 
 
 /**
  @abstract  <#abstract comment#>
  */
-@interface GHDataStoreManager : CTDataStoreManager
+@interface GHDataStoreManager : SLCoreDataStack
 
 @end

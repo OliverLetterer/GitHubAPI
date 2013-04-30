@@ -8,7 +8,7 @@
 
 #import "GHIssue.h"
 #import "GHUser.h"
-#import "CTRESTfulCoreData.h"
+#import "SLRESTfulCoreData.h"
 
 
 

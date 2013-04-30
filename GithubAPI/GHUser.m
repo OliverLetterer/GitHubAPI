@@ -8,7 +8,7 @@
 
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "CTRESTfulCoreData.h"
+#import "SLRESTfulCoreData.h"
 
 
 @implementation GHUser
